@@ -1,45 +1,86 @@
 package se.lexicon;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class ConverterApp {
-    static void main(String[] args) {
+    static void main() {
         Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        System.out.println(" ### Converter App ### ");
-        System.out.println(" 1. Length Converter ");
-        System.out.println(" 2. Weight Converter ");
-        System.out.println(" 3. Time Converter ");
-        System.out.println(" 4. Exit ");
-        System.out.println(" Choose an option: ");
-        int option = scanner.nextInt();
-        if (option == 1) {
-            System.out.println("What is the length you want to convert to: ");
-            double length = scanner.nextDouble();
-            System.out.println("Do you want to convert from 1. m => km or 2. km => m: ");
-            int unit = scanner.nextInt();
-                if (unit == 1) {
-                    System.out.println("Result in kilometers: " + length / 1000);
-                } else {
-                    System.out.println("Result in meters: " + length * 1000);
-                }
-        } else if (option == 2) {
-            System.out.println("Enter the value to convert: ");
-            double weight = scanner.nextDouble();
-            System.out.println("Which unit you want to convert 1. kg to g, 2. g to kg: ");
-            int unit = scanner.nextInt();
-            if (unit == 1) {
-                System.out.println("Result in kilograms: " + weight * 1000);
-            } else {
-                System.out.println("Result in grams: " + weight / 1000);
+        while (running) {
+            System.out.println(" --- Converter App --- ");
+            System.out.println(" 1. Length Converter ");
+            System.out.println(" 2. BMI calculator");
+            System.out.println(" 3. Weight Converter ");
+            System.out.println(" 4. Exit ");
+            System.out.println(" Choose an option: ");
+
+            int choice = scanner.nextInt();
+            LocalDate currentDate = LocalDate.now();
+            LocalTime currentTime = LocalTime.now();
+
+            switch (choice) {
+                case 1: //Length
+                    System.out.println("Enter the length: ");
+                    double length = scanner.nextDouble();
+                    System.out.println("1. m => km or 2. km => m: ");
+                    int unit = scanner.nextInt();
+
+                    if (unit == 1) {
+                        System.out.println("Result: " + tokm(length) + "km");
+                    } else {
+                        System.out.println("Result: " + tom(length) + "m");
+                    }
+                    System.out.println("Converted at: " + currentDate + currentTime);
+                    break;
+
+                case 2: //BMI
+
+                    System.out.println("Converted at: " + currentDate + currentTime);
+
+                case 3://Weight
+                    System.out.println("Enter the value: ");
+                    double weight = scanner.nextDouble();
+                    System.out.println("1. kg to g, 2. g to kg: ");
+                    int weightUnit = scanner.nextInt();
+
+                    if (weightUnit == 1) {
+                        System.out.println("Result: " + tokg(weight) + "kg");
+                    } else {
+                        System.out.println("Result: " + tog(weight) + "g");
+                    }
+                    System.out.println("Converted at: " + currentDate + currentTime);
+                    break;
+
+                case 4://Exit
+                    System.out.println("Exiting....Goodbye!");
+                    running = false;
+                    break;
+
+                default:
+                    System.out.println("Please enter a valid option (1-4)");
             }
-        } else if (option == 3) {
-            System.out.println();
-        } else {
-
         }
-
-
-
+        scanner.close();
+    }
+    public static double tokm(double m){
+        return m / 1000.0;
+    }
+    public static double tom(double km){
+        return km * 1000.0;
+    }
+    public static double tokg(double g){
+        return g / 1000.0;
+    }
+    public static double tog(double kg){
+        return kg * 1000.0;
     }
 }
+
+
+
+
+
+
